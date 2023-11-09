@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Assessment extends Model
+class Announcement extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'courseid', 'type', 'score', 'maxscore', 'weightage'];
-
+    protected $fillable = ['userid', 'courseid', 'title', 'description'];
 
 }

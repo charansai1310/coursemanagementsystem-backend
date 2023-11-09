@@ -22,7 +22,7 @@ class CourseTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Course::create([
                 'name' => $faker->word,
-                'description' => $faker->sentence,
+                'description' => $faker->paragraph,
                 'instructorid' => $faker->randomNumber(),
                 'programid' => $faker->randomNumber(),
                 'start' => $faker->date,

@@ -16,10 +16,14 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('description');
-            $table->integer('courseid');
-            $table->integer('score');
+            $table->bigInteger('courseid')->unsigned();
             $table->integer('maxscore');
             $table->integer('weightage');
+        });
+
+        Schema::table('assessments', function(Blueprint $table)
+        {
+            $table->foreign('courseid')->references('id')->on('courses');
         });
     }
 

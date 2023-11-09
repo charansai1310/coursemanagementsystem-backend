@@ -38,4 +38,20 @@ class CourseController extends Controller
         return response()->json(null, 204);
     }
 
+
+    public function assessments(Course $course)
+    {
+        return $course->assessments()->get();
+    }
+
+    public function assessmentsByType($courseid, $asstype){
+        return Course::find($courseid)->assessments()
+            ->where('type', $asstype);
+    }
+
+    public function announcements(Course $course)
+    {
+        return $course->announcements();
+    }
+
 }
