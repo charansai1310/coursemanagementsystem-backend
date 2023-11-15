@@ -9,6 +9,7 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\AnnouncementController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 /*
@@ -30,6 +31,12 @@ use App\Http\Controllers\AnnouncementController;
 //Auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 
 Route::middleware('auth:sanctum')->group(function () {
