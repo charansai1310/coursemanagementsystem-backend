@@ -10,5 +10,8 @@ class Assessment extends Model
     use HasFactory;
     protected $fillable = ['name', 'description', 'courseid', 'type', 'score', 'maxscore', 'weightage'];
 
+    public function submissions(){
+        return $this->hasMany(Submission::class, 'assid');
+    }
 
 }

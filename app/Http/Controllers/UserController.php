@@ -27,6 +27,11 @@ class UserController extends Controller
         return $User->courses();
     }
 
+    public function coursesOfInstructor(User $User)
+    {
+        return $User->coursesofInstructor();
+    }
+
     public function store(Request $request)
     {
         $User = User::create($request->all());

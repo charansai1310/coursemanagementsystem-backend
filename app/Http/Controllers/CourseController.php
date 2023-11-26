@@ -3,13 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class CourseController extends Controller
 {
     public function index()
     {
-        return Course::all();
+        $q = 'SELECT
+    c.id AS course_id,
+    c.name AS course_name,
+    Instructor.id AS instructor_id,
+    Instructor.firstname AS instructor_firstname,
+    Instructor.lastname AS instructor_lastname
+FROM
+    courses c
+JOIN
+    users AS Instructor ON c.instructorid = Instructor.id;';
+        $courses = DB::select($q);
+        return $courses;
     }
 
     public function show(Course $Course)
@@ -44,9 +58,11 @@ class CourseController extends Controller
         return $course->assessments()->get();
     }
 
-    public function assessmentsByType($courseid, $asstype){
-        return Course::find($courseid)->assessments()
-            ->where('type', $asstype);
+    public function assessmentsByType(Request $request ,Course $course, String $asstype){
+        $user = $request->user();
+        return $course->assessments()->where('type', $asstype)->get();
+//            ->join('submissions', 'submissions.assid', '=', 'assessments.id')
+//            ->where('userid', $user['id'])->get();
     }
 
     public function announcements(Course $course)

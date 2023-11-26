@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function courses(){
         return $this->belongsToMany(Course::class, 'enrollments', 'userid', 'courseid')->get();
+    }
+
+    public function coursesofInstructor(){
+        return $this->hasMany(Course::class, 'instructorid', 'id')->get();
     }
 }
