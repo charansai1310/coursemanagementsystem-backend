@@ -28,7 +28,12 @@ JOIN
 
     public function show(Course $Course)
     {
-        return $Course;
+//        $responseData = [
+//            $Course,
+//            "assessments" => $Course->assessments()->get()
+//        ];
+        $Course['assessments'] = $Course->assessments()->get();
+        return response()->json($Course);
     }
 
     public function store(Request $request)

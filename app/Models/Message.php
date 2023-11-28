@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
-    protected $fillable = ['senderid', 'recieverid', 'content', 'subject'];
+    protected $fillable = ['senderid', 'dissid', 'content'];
+
+    public function user(){
+        return $this->hasOne(User::class, 'senderid');
+    }
 }

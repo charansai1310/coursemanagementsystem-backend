@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use \App\Http\Controllers\DiscussionController;
+use \App\Http\Controllers\MessageController;
+use \App\Http\Controllers\ChatController;
 
 
 
@@ -147,4 +150,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('feedbacks', [FeedbackController::class, 'store']);
     Route::put('feedbacks/{feedback}', [FeedbackController::class, 'update']);
     Route::delete('feedbacks/{feedback}', [FeedbackController::class, 'delete']);
+
+    // Discussions
+    Route::get('discussions', [DiscussionController::class, 'index']);
+    Route::get('discussions/{discussion}', [DiscussionController::class, 'show']);
+    Route::post('discussions', [DiscussionController::class, 'store']);
+    Route::put('discussions/{discussion}', [DiscussionController::class, 'update']);
+    Route::delete('discussions/{discussion}', [DiscussionController::class, 'delete']);
+
+    Route::get('messages/{dissid}', [MessageController::class, 'getMessagesByDiscussion']);
+    Route::post('chat/{chatid}', [ChatController::class, 'sendMessage']);
+
 });
